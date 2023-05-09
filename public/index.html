@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Screenshot</title>
+</head>
+<body>
+  <h1>Screenshot Web</h1>
+  <form id="screenshot-form" action="/screenshot" method="get">
+    <label for="url">Ingresar URL de la web que desee capturar foto:</label>
+    <input type="text" name="url" id="url">
+    <button type="submit">Imagen Capturada</button>
+  </form>
+  <div id="screenshot-preview"></div>
+  <script>
+    const form = document.querySelector('#screenshot-form');
+    const preview = document.querySelector('#screenshot-preview');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const url = document.querySelector('#url').value;
+      const response = await fetch(`/screenshot?url=${encodeURIComponent(url)}`);
+      const html = await response.text();
+      preview.innerHTML = html;
+    });
+  </script>
+</body>
+</html>
